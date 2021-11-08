@@ -20,11 +20,22 @@ for articles in content.find_all(class_="post-card"):
     content2 = bs(src2,'lxml')
 
     for post in content2.find_all("article"):
-        for text in post:
-            list_content.append(post)
+        p0 = post.find('h3')
+        p1 = post.find_all('p')
+        for p in p0:
+            print(p.text)
+        for p in p1:
+            print(p.text)
+        print('\n')
+            # list_content.append(text)
+            # print(text)
+            
             
 
-print(len(list_links))
-print(len(list_authors))
-
+# print(list_links)
+# print(list_authors)
+# print(list_content)
+# print(len(list_links))
+# print(len(list_authors))
+# print(len(list_content))
 
