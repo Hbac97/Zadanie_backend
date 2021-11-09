@@ -8,6 +8,7 @@ content = bs(src,'lxml')
 list_links=[]
 list_authors=[]
 list_content=[]
+list_posts=[]
 for articles in content.find_all(class_="post-card"):
     a = articles.find('a')
     author = articles.find(class_="author")
@@ -23,19 +24,13 @@ for articles in content.find_all(class_="post-card"):
         p0 = post.find('h3')
         p1 = post.find_all('p')
         for p in p0:
-            print(p.text)
+            list_content.append(p.text)
         for p in p1:
-            print(p.text)
-        print('\n')
-            # list_content.append(text)
-            # print(text)
-            
-            
+            list_content.append(p.text)
+        list_posts[len(list_posts):] = [''.join(list_content[:])]
+        list_content=[]
 
-# print(list_links)
-# print(list_authors)
-# print(list_content)
-# print(len(list_links))
-# print(len(list_authors))
-# print(len(list_content))
-
+print(list_authors)
+print(*list_posts, sep='\n',end='\n')
+print(len(list_authors))
+print(len(list_posts))
