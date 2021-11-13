@@ -1,0 +1,8 @@
+version: "3"
+services: 
+  app:
+    build: ./app
+  db: 
+    build: ./data
+    ports:
+     - '5430:5432'
