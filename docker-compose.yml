@@ -1,0 +1,14 @@
+version: "3"
+services: 
+  db: 
+    build: ./data
+    ports:
+     - '5430:5432'
+  app:
+    build: ./app
+    depends_on: 
+     - "db"
+  app_django_api:
+    build: ./app_django_api
+    depends_on:
+     - "app"
