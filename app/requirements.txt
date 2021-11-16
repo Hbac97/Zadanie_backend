@@ -2,3 +2,6 @@ beautifulsoup4
 requests
 psycopg2
 lxml
+django
+djangorestframework
+
