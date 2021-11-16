@@ -12,3 +12,9 @@ services:
     build: ./app_django_api
     depends_on:
      - "app"
+  app:
+    build: ./app
+  db: 
+    build: ./data
+    ports:
+     - '5430:5432'
