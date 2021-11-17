@@ -109,7 +109,6 @@ def postsAuthorsAuthor(request):
             lowercase_authors_list.append(x)
             print(x)
        
-
     list_combined= dict(zip(authors_list,lowercase_authors_list))
     # serializer = PostsSerialiser(posts, many=True)
     # return Response(serializer.data)
