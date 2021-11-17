@@ -9,12 +9,10 @@ services:
     depends_on: 
      - "db"
   app_django_api:
-    build: ./app_django_api
+    build: ./app_django
+    command: python manage.py runserver 8080
+    ports:
+     - "8080:8080"
     depends_on:
      - "app"
-  app:
-    build: ./app
-  db: 
-    build: ./data
-    ports:
-     - '5430:5432'
+     - "db"
