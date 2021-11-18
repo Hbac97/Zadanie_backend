@@ -6,8 +6,7 @@ from .models import Posts
 from collections import Counter
 from .serializers import PostsSerialiser
 import json
-
-
+import asyncio
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -77,10 +76,9 @@ def postsStatsAuthors(request,author):
 
     lower_authors = list(list_combined.values())
     normal_authors = list(list_combined.keys())
-
+    
     author_id = lower_authors.index(author)
     author = normal_authors[author_id]
-
     posts = Posts.objects.filter(authors__contains=author)
     posts = posts.values('content')
 
@@ -104,8 +102,6 @@ def postsStatsAuthors(request,author):
         new_word_list=word.split()
         counts = Counter(new_word_list)
         counted.update(counts)
-        
-    print(len(counted))
 
     counted = dict(sorted(counted.items(),key=lambda i: i[1], reverse=True))
     counted = dict(take(10, counted.items()))
@@ -122,14 +118,12 @@ def postsAuthorsAuthor(request):
         i = dict(i)
         i = i.values()
         for x in i:
-            print(x)
             authors_list.append(x)
         for x in i:
             x = str(x)
             x = x.replace(' ','')
             x = x.lower()
             lowercase_authors_list.append(x)
-            print(x)
        
     list_combined= dict(zip(authors_list,lowercase_authors_list))
     return HttpResponse(json.dumps(list_combined),content_type = 'application/json; charset=UTF-8')
