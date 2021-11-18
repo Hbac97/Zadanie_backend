@@ -49,9 +49,6 @@ def postsStats(request):
         counts = Counter(new_word_list)
         counted.update(counts)
 
-    print(len(counted))
-    #print(counted)
-
     counted = dict(sorted(counted.items(),key=lambda i: i[1], reverse=True))
     counted = dict(take(10, counted.items()))
 
@@ -59,6 +56,31 @@ def postsStats(request):
 
 @api_view(['GET'])
 def postsStatsAuthors(request,author):
+
+    posts = Posts.objects.values('authors')
+
+    list_combined = {}
+    authors_list = []
+    lowercase_authors_list = []
+    for i in posts:
+        i = dict(i)
+        i = i.values()
+        for x in i:
+            authors_list.append(x)
+        for x in i:
+            x = str(x)
+            x = x.replace(' ','')
+            x = x.lower()
+            lowercase_authors_list.append(x)
+       
+    list_combined= dict(zip(authors_list,lowercase_authors_list))
+
+    lower_authors = list(list_combined.values())
+    normal_authors = list(list_combined.keys())
+
+    author_id = lower_authors.index(author)
+    author = normal_authors[author_id]
+
     posts = Posts.objects.filter(authors__contains=author)
     posts = posts.values('content')
 
@@ -110,7 +132,4 @@ def postsAuthorsAuthor(request):
             print(x)
        
     list_combined= dict(zip(authors_list,lowercase_authors_list))
-    # serializer = PostsSerialiser(posts, many=True)
-    # return Response(serializer.data)
-
     return HttpResponse(json.dumps(list_combined),content_type = 'application/json; charset=UTF-8')
