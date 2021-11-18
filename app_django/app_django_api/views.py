@@ -6,7 +6,7 @@ from .models import Posts
 from collections import Counter
 from .serializers import PostsSerialiser
 import json
-import asyncio
+
 
 @api_view(['GET'])
 def apiOverview(request):
