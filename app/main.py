@@ -37,9 +37,6 @@ def scraper():
             list_posts[len(list_posts):] = [''.join(list_content[:])]
             list_content=[]
 
-    print(len(list_titles))
-    print(len(list_authors))
-    print(len(list_posts))
     list_combined = list(zip(list_authors,list_titles,list_posts))
     sql(list_combined)
 
